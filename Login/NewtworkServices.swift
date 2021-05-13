@@ -153,33 +153,5 @@ class NetworkServices {
     
 //    MARK: FUNCTION TO OBTAIN LIST CONTACT
     
-    func fetchList(sessionName: String, completion: @escaping ([ListContact], Error?) -> ()) {
-        let urlString = "https://develop.datacrm.la/datacrm/pruebatecnica/webservice.php?operation=query&sessionName={{\(sessionName)}}&query=select * from Contacts;"
-        
-        guard let url = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            //            error to requets
-                        if let error = error {
-                            print("Failed to fetch apps:", error)
-                            completion([], nil)
-                            return
-                        }
-//                        sucess
-//                        print(data)
-//                        print(String(data: data!, encoding: .utf8))
-            guard let data = data else { return }
-
-            do {
-                let searchResult = try JSONDecoder().decode(Contact.self, from: data)
-//                            print(searchResult)
-                completion(searchResult.result, nil)
-               
-
-            } catch let jsonErr {
-                debugPrint("Failed to decode json:", jsonErr)
-                completion([], jsonErr)
-            }
-        }.resume()
-    }
+    
 }

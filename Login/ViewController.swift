@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         getAllTokens()
-        
+
     }
 
 //    Fuction to obtain token in controller
@@ -32,6 +32,7 @@ class ViewController: UIViewController {
             self.tokenMD5 = self.token.md5()
 //            print(self.tokenMD5)
             
+//    MARK: fuction to obtain session user in controller
             self.singInUser(token: self.token)
             
         } onError: {  (errorMessage) in
@@ -41,19 +42,13 @@ class ViewController: UIViewController {
 
     }
     
-    fileprivate var appResults = [ListContact]()
+//    fuction to obtain session user in controller
     
     func singInUser (token: String) {
         NetworkServices.shared.singIn(token: token) { (sing) in
             debugPrint(sing.result.sessionName)
             self.sessionUser = sing.result.sessionName
             debugPrint(self.sessionUser)
-            func fetchApps(sessionName: String) {
-                NetworkServices.shared.fetchList(sessionName: sessionName) {( results, err) in
-                    self.appResults = results
-                }
-            }
-            fetchApps(sessionName: self.sessionUser)
             
         } onError: { (errorMessage) in
             debugPrint(errorMessage)
@@ -62,11 +57,7 @@ class ViewController: UIViewController {
     }
     
 
-//    func fetchApps(sessionName: String) {
-//        NetworkServices.shared.fetchList(sessionName: sessionName) {( results, err) in
-//            self.appResults = results
-//        }
-//    }
+
 
 }
 
