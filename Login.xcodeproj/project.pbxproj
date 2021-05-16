@@ -74,6 +74,7 @@
 		8D6333E1264B23EB005E08FE /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				8DE7CB752650D71800D5A6EF /* Service */,
 				8D8F292C265062C3000B0FDF /* View */,
 				8D8F292626504373000B0FDF /* Controller */,
 				8DF27569264C4C4400A74AC6 /* Extensions */,
@@ -103,7 +104,6 @@
 		8D6333FD264B331E005E08FE /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8D6333FE264B3349005E08FE /* NewtworkServices.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -123,6 +123,14 @@
 				8D8F292D26506304000B0FDF /* ListContactTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8DE7CB752650D71800D5A6EF /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				8D6333FE264B3349005E08FE /* NewtworkServices.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		8DF27569264C4C4400A74AC6 /* Extensions */ = {
