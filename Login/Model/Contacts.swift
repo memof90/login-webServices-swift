@@ -8,12 +8,12 @@
 import Foundation
 
 
-struct Contact: Codable {
+struct Contacts: Decodable {
     let success: Bool
     let result: [ListContact]
 }
 
-struct ListContact: Codable {
+struct ListContact: Decodable {
     let id: String
     let contact_no: String
     let lastname: String

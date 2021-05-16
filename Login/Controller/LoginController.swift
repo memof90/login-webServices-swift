@@ -7,23 +7,30 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+
+class LoginController: UIViewController {
+    
+
+    
+    
 //    Var to save token an use in controller
     
     var token = ""
     var tokenMD5 = ""
     var sessionUser = ""
   
- 
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        getAllTokens()
-
+       
+      
     }
 
 //    Fuction to obtain token in controller
+    
+
     
     func getAllTokens() {
         NetworkServices.shared.getToken { (tokens) in
@@ -49,7 +56,11 @@ class ViewController: UIViewController {
             debugPrint(sing.result.sessionName)
             self.sessionUser = sing.result.sessionName
             debugPrint(self.sessionUser)
-            
+//            self.fetchingContact(sessionName: self.sessionUser)
+//            DispatchQueue.main.async {
+//                ListContactController.shared.getAll(sessionName: self.sessionUser)
+//            }
+           
         } onError: { (errorMessage) in
             debugPrint(errorMessage)
         }
@@ -58,6 +69,17 @@ class ViewController: UIViewController {
     
 
 
-
+//    MARK: IBOUTLET ACTION
+    
+    @IBAction func LoginButton(_ sender: Any) {
+        getAllTokens()
+        guard let singInCntroller = storyboard?.instantiateViewController(withIdentifier: "SingInController") else {
+            return
+        }
+        
+        presentDetail(singInCntroller)
+    }
+    
 }
+
 

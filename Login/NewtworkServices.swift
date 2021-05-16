@@ -25,7 +25,7 @@ class NetworkServices {
     
 //    root: sessionName={{sessionName}} '/'
     
-    let URL_LIST = "https://develop.datacrm.la/datacrm/pruebatecnica/webservice.php?operation"
+    let URL_LIST = "https://develop.datacrm.la/datacrm/pruebatecnica/webservice.php?operation=query"
 
     let session = URLSession(configuration: .default)
     
@@ -151,7 +151,112 @@ class NetworkServices {
 
     }
     
-//    MARK: FUNCTION TO OBTAIN LIST CONTACT
+    //    MARK: FUNCTION TO OBTAIN LIST CONTACT
     
+    func fetchAll(sessionName: String, onSucees: @escaping (Contacts) -> Void, onError: @escaping (String) -> Void) {
+        
+        var requestBodyComponents = URLComponents()
+        requestBodyComponents.scheme = "https"
+        requestBodyComponents.host = "develop.datacrm.la"
+        requestBodyComponents.path = "/datacrm/pruebatecnica/webservice.php"
+
+
+
+        requestBodyComponents.queryItems = [ URLQueryItem(name: "operation", value: "query"),
+                                             URLQueryItem(name: "sessionName", value: sessionName),
+                                             URLQueryItem(name: "query", value: "select * from Contacts;")                                                ]
+
+        print(requestBodyComponents.string!)
+        
+        let url = URL(string: requestBodyComponents.string!)!
+        
+        let task = session.dataTask(with: url) { (data, response, error) in
+                    
+        //            Grand central Dispath es le sistema de enhebrado contruido por ios
+        //            para hacer solictidus URLSession de manera asyncrona y cuyas tareas se ejecuten en segundo plano
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            onError(error.localizedDescription)
+                            return
+                        }
+                        
+                        guard let data = data, let response = response as? HTTPURLResponse else {
+                            onError("Invalid data or response")
+                            return
+                        }
+                        
+            //            MARK: Tenemos que manejar los errores 500 or 400 o exito 200
+                        do {
+                            
+                            if response.statusCode == 200 {
+                //                parse successful result (todos)
+                                let items = try JSONDecoder().decode(Contacts.self, from: data)
+            //                    handle success
+                                onSucees(items)
+                                
+                            } else {
+                //                show error to user
+                                let err = try JSONDecoder().decode(APIError.self, from: data)
+            //                    handle erorr
+                                onError(err.message)
+                            }
+                            
+                        } catch {
+                            onError(error.localizedDescription)
+                        }
+                    }
+                }
+                task.resume()
+        
+    }
+    
+    
+//    MARK: FUNCTION TO OBTAIN LIST CONTACT
+//    func fetchList(sessionName: String, completion: @escaping ([ListContact], Error?) -> ()) {
+//        print("Fetching itunes from Service Layer")
+//       
+//        
+//        var requestBodyComponents = URLComponents()
+//        requestBodyComponents.scheme = "https"
+//        requestBodyComponents.host = "develop.datacrm.la"
+//        requestBodyComponents.path = "/datacrm/pruebatecnica/webservice.php"
+//
+//
+//
+//        requestBodyComponents.queryItems = [ URLQueryItem(name: "operation", value: "query"),
+//                                             URLQueryItem(name: "sessionName", value: sessionName),
+//                                             URLQueryItem(name: "query", value: "select * from Contacts;")                                                ]
+//
+//        print(requestBodyComponents.string!)
+//        
+//        let url = URL(string: requestBodyComponents.string!)!
+//        
+//      
+//        URLSession.shared.dataTask(with: url) { data, response, error in
+//            //   ////        failaure
+//                       if let error = error {
+//                           print("Failed to fetch apps:", error)
+//                           return
+//                       }
+////                    print(data)
+//                print(String(data: data!, encoding: .utf8))
+//            guard let data = data  else {return}
+//            
+//            do {
+//                let searchResult = try JSONDecoder().decode(Contacts.self, from: data)
+////                            print(searchResult)
+//                completion(searchResult.result, nil)
+//               
+//
+//            } catch let jsonErr {
+//                debugPrint("Failed to decode json:", jsonErr)
+//                completion([], jsonErr)
+//            }
+//            
+//        }.resume()
+//
+//        
+//     
+//    }
     
 }
