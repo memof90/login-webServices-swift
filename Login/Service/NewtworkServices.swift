@@ -120,7 +120,7 @@ class NetworkServices {
                     if response.statusCode == 200 {
                         // parse successful result (session or log in)
                         let items = try JSONDecoder().decode(LogIn.self, from: data)
-                        debugPrint(items)
+//                        debugPrint(items)
                         // handle success
                         onSuceess(items)
                     } else {

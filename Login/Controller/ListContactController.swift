@@ -38,7 +38,7 @@ class ListContactController: UIViewController{
     func getAllTokens() {
         NetworkServices.shared.getToken { (tokens) in
             self.token = tokens.result.token
-            debugPrint(self.token)
+//            debugPrint(self.token)
             self.tokenMD5 = self.token.md5()
 //            print(self.tokenMD5)
             
@@ -56,12 +56,13 @@ class ListContactController: UIViewController{
     
     func singInUser (token: String) {
         NetworkServices.shared.singIn(token: token) { (sing) in
-            debugPrint(sing.result.sessionName)
+//            debugPrint(sing.result.sessionName)
             self.sessionUser = sing.result.sessionName
-            debugPrint(self.sessionUser)
+//            debugPrint(self.sessionUser)
 //            self.fetchingContact(sessionName: self.sessionUser)
             DispatchQueue.main.async {
                 self.getAll(sessionName: self.sessionUser)
+                debugPrint(self.sessionUser)
             }
            
         } onError: { (errorMessage) in

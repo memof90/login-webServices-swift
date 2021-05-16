@@ -78,7 +78,6 @@
 				8D8F292C265062C3000B0FDF /* View */,
 				8D8F292626504373000B0FDF /* Controller */,
 				8DF27569264C4C4400A74AC6 /* Extensions */,
-				8D6333FD264B331E005E08FE /* Services */,
 				8D6333F6264B241D005E08FE /* Model */,
 				8D6333E2264B23EB005E08FE /* AppDelegate.swift */,
 				8D6333E4264B23EB005E08FE /* SceneDelegate.swift */,
@@ -99,13 +98,6 @@
 				8DDFF9E3264D993800C7FC46 /* Contacts.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		8D6333FD264B331E005E08FE /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Services;
 			sourceTree = "<group>";
 		};
 		8D8F292626504373000B0FDF /* Controller */ = {
